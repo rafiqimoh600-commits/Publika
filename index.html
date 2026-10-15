@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Birthday Magic 💖</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;overflow-x:hidden;
+ color:white;text-align:center;font-family:Arial,sans-serif;
+ background:radial-gradient(ellipse at top,#512078,#10001e 65%,#03000a);
+}
+header{padding:22px 12px 5px;color:#ffb8ed;font-weight:bold}
+main{max-width:480px;margin:auto;padding:20px 18px}
+h1{font-size:clamp(30px,9vw,48px);color:#ff80d5;
+ text-shadow:0 0 22px #ff00b7;animation:glow 2s infinite alternate}
+@keyframes glow{to{filter:brightness(1.6)}}
+p{line-height:1.7}
+.name{font-size:30px;color:#ffe66d;font-weight:bold;overflow-wrap:anywhere}
+input{
+ width:100%;padding:14px;border-radius:14px;border:1px solid #ff80d5;
+ background:#190b35;color:white;font-size:16px;text-align:center;margin:12px 0
+}
+button{
+ padding:12px 17px;margin:5px;border:1px solid #ffb0e5;
+ border-radius:25px;color:white;font-weight:bold;
+ background:linear-gradient(45deg,#ff168b,#7b25ff);
+ box-shadow:0 0 15px #a52bff66;cursor:pointer
+}
+button:active{transform:scale(.92)}
+.gift{
+ position:relative;margin:35px auto 20px;width:155px;height:125px;
+ cursor:pointer;perspective:600px;animation:bob 2s infinite ease-in-out
+}
+@keyframes bob{50%{transform:translateY(-12px)}}
+.box{
+ position:absolute;bottom:0;width:155px;height:95px;
+ background:linear-gradient(100deg,#8d174e,#ff389c,#86124f);
+ border:2px solid #ffd16b;border-radius:8px;
+ box-shadow:0 0 30px #ff36c9
+}
+.ribbon{position:absolute;left:65px;width:25px;height:100%;
+ background:linear-gradient(90deg,#ffc14c,#fff0a0,#d88b14);z-index:2}
+.lid{
+ position:absolute;top:15px;left:-8px;width:171px;height:28px;
+ background:linear-gradient(#ffe4a0,#e7a323);
+ border:2px solid #fff1ae;border-radius:6px;
+ transform-origin:left;transition:transform .8s;z-index:3
+}
+.bow{position:absolute;top:-3px;left:53px;z-index:4;font-size:45px}
+.gift.open .lid{transform:rotate(-120deg) translateY(-35px)}
+.hint{font-size:13px;color:#ffc9f2}
+.card{
+ display:none;margin:25px auto;padding:22px 17px;
+ border:1px solid #ff9cde;border-radius:20px;
+ background:#ffffff12;box-shadow:0 0 25px #ff2cc766;
+ animation:appear .8s
+}
+.card.show{display:block}
+@keyframes appear{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.cake{font-size:85px;animation:bob 2s infinite}
+#status{font-size:13px;color:#ffd5f1}
+.particle{
+ position:fixed;top:-30px;z-index:9;pointer-events:none;
+ animation:fall 4s linear forwards
+}
+@keyframes fall{to{transform:translateY(110vh) rotate(600deg);opacity:0}}
+footer{padding:25px;font-size:12px;color:#dcb7ee}
+</style>
+</head>
+<body>
+<header>♡ Special for You ♡</header>
+
+<main>
+ <h1>Happy Birthday 🎉</h1>
+ <p>Hari spesial 💖</p>
+
+ <div class="name" id="nama">Happy Birthday</div>
+
+ 
+
+ <div class="gift" id="gift" onclick="bukaHadiah()">
+  <div class="box"></div>
+  <div class="ribbon"></div>
+  <div class="lid"></div>
+  <div class="bow">🎀</div>
+ </div>
+ <div class="hint">👆 KETUK KOTAK HADIAH UNTUK MEMBUKA</div>
+
+ <section class="card" id="surat">
+  <div class="cake">🎂</div>
+  <h2>Surprise! 💝</h2>
+  <h2 id="ucapanNama">Selamat Ulang Tahun!</h2>
+  <p>
+   Selamat ulang tahun! 🥳<br>
+   Semoga panjang umur dan sehat selalu.<br>
+   Semoga semua impianmu menjadi kenyataan.<br>
+   Semoga kebahagiaan selalu menemanimu.<br>
+   Jangan pernah berhenti mengejar cita-citamu! ✨
+  </p>
+  <p>💖 Dari seseorang yang ingin melihatmu bahagia.</p>
+ </section>
+
+ <button onclick="putarMusik()">🎵 Putar Musik</button>
+ <button onclick="kejutan()">🎊 Efek Kejutan</button>
+ <p id="status">Siap memberikan kejutan? 💗</p>
+</main>
+
+<footer>Dibuat dengan ❤️ · Birthday Magic</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+let dibuka=false;
+
+function gantiNama(){
+ const n=$("namaBaru").value.trim();
+ if(!n){alert("Tulis nama dahulu ya!");return}
+ $("nama").textContent=n;
+ $("ucapanNama").textContent="Selamat Ulang Tahun, "+n+"!";
+ $("status").textContent="Nama berhasil diganti! 💖";
+}
+
+function bukaHadiah(){
+ $("gift").classList.add("open");
+ $("surat").classList.add("show");
+ dibuka=true;
+ $("status").textContent="Hadiah terbuka! Semoga kamu bahagia! 💝";
+ kejutan();
+}
+
+function kejutan(){
+ const simbol=["💖","🎉","✨","🎊","💕","⭐","🌸"];
+ for(let i=0;i<65;i++){
+  setTimeout(()=>{
+   const p=document.createElement("div");
+   p.className="particle";
+   p.textContent=simbol[Math.floor(Math.random()*simbol.length)];
+   p.style.left=Math.random()*100+"vw";
+   p.style.animationDuration=(2+Math.random()*3)+"s";
+   p.style.fontSize=(16+Math.random()*22)+"px";
+   document.body.appendChild(p);
+   setTimeout(()=>p.remove(),5500);
+  },i*25);
+ }
+ $("status").textContent="🎊 Kejutan untukmu!";
+}
+
+// Balon terbang
+setInterval(()=>{
+ const b=document.createElement("div");
+ b.className="particle";
+ b.textContent=["🎈","💗","🎈","✨"][Math.floor(Math.random()*4)];
+ b.style.left=Math.random()*100+"vw";
+ b.style.top="100vh";
+ b.style.animationDuration=(5+Math.random()*4)+"s";
+ document.body.appendChild(b);
+ setTimeout(()=>b.remove(),10000);
+},800);
+
+// Melodi elektronik ulang tahun
+let ctx=null,timer=null,idx=0;
+const lagu=[
+ [262,350],[262,350],[294,700],[262,700],[349,700],[330,1000],
+ [262,350],[262,350],[294,700],[262,700],[392,700],[349,1000],
+ [262,350],[262,350],[523,700],[440,700],[349,700],[330,700],
+ [294,1000],[466,350],[466,350],[440,700],[349,700],[392,700],[349,1200]
+];
+
+async function putarMusik(){
+ stopMusik();
+ const AC=window.AudioContext||window.webkitAudioContext;
+ if(!AC){$("status").textContent="Audio tidak didukung browser.";return}
+ ctx=new AC();
+ await ctx.resume();
+ idx=0;
+ $("status").textContent="🎵 Musik sedang diputar!";
+ mainkanNada();
+}
+
+function mainkanNada(){
+ if(!ctx)return;
+ if(idx>=lagu.length){
+  $("status").textContent="Lagu selesai! Tekan Putar Musik lagi.";
+  timer=null;return;
+ }
+ const [freq,dur]=lagu[idx++];
+ const osc=ctx.createOscillator();
+ const gain=ctx.createGain();
+ osc.type="triangle";
+ osc.frequency.value=freq;
+ gain.gain.setValueAtTime(.12,ctx.currentTime);
+ gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+dur/1000*.8);
+ osc.connect(gain);gain.connect(ctx.destination);
+ osc.start();
+ osc.stop(ctx.currentTime+dur/1000*.85);
+ timer=setTimeout(mainkanNada,dur);
+}
+
+function stopMusik(){
+ if(timer){clearTimeout(timer);timer=null}
+ if(ctx){ctx.close();ctx=null}
+ $("status").textContent="Musik dihentikan. 🎵";
+}
+</script>
+</body>
+</html>
